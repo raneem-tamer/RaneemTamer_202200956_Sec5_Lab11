@@ -1,0 +1,50 @@
+# Code Explanation
+
+## Imports:
+The script imports various modules from Selenium to control the browser, manage elements, handle exceptions, and configure the Chrome WebDriver.  
+It also imports `time` for delays and `logging` for outputting messages to the console.
+
+## Logging Setup:
+Configures basic logging to output messages at the `INFO` level, which helps in monitoring the script's execution.
+
+## Chrome Options:
+Initializes Chrome options to customize the browser's behavior:
+---disable-blink-features=AutomationControlled`: Prevents detection that the browser is automated.
+---start-maximized`: Opens the browser in a maximized state.
+- Sets a custom user agent string to mimic a real user, which can help avoid bot detection.
+
+## WebDriver Setup:
+Uses `ChromeDriverManager` to automatically manage the installation of the ChromeDriver.  
+Initializes the Chrome WebDriver with the specified options, allowing for automated browsing.
+
+## Price Extraction Function:
+The `extract_price(driver)` function attempts to retrieve the product price using multiple methods:
+- It first tries to find the price using a standard CSS selector.
+- If that fails, it attempts to find the price using different IDs for various price displays (deal price, our price).
+- If all attempts fail, it tries to extract the price using an XPath expression.
+- Logs a warning if the price element cannot be located.
+
+## Main Logic:
+- Opening Amazon: The script navigates to the Amazon homepage.
+- Searching for a Product: It waits for the search bar element to load, enters a search term (e.g., "Headphones"), and simulates pressing the Return key to perform the search.
+- Waiting for Results: It waits for the search results to appear on the page.
+
+## Clicking the First Product:
+The script waits for the first product in the search results to be clickable.  
+It scrolls the product into view and clicks on it, allowing for a brief pause to ensure any overlays are loaded.
+
+## Extracting Product Details:
+Retrieves the product title, URL, and price using the `extract_price` function.  
+Attempts to extract the product rating, handling cases where the rating element might not be present.
+
+## Logging Product Information:
+Logs the extracted product details (title, URL, price, rating) to the console for user visibility.
+
+## Taking a Screenshot:
+Captures a screenshot of the product page and saves it to a specified file name, logging the action.
+
+## Cleanup:
+In a `finally` block, the script ensures that the WebDriver is closed, regardless of any errors that may have occurred during execution.
+
+## Summary
+This script automates the process of searching for a product on Amazon, retrieving relevant details such as title, price, and rating, and handling various exceptions gracefully. It provides a structured way to interact with web pages using Selenium, showcasing effective error handling and logging practices.
